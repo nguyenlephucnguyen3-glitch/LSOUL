@@ -13,7 +13,7 @@ export const SITE = {
 
 // Link mạng xã hội chính thức của LSOUL (Project VLU).
 export const SOCIAL = [
-  { key: 'tiktok', label: 'TikTok', url: 'https://www.tiktok.com/@lsoulprojectvlu', role: 'Video ngắn', desc: 'Chuyển động của chất liệu, kỹ thuật dựng corset 3D và cách phối đồ trong 15 giây.' },
+  { key: 'tiktok', label: 'TikTok', url: 'https://www.tiktok.com/@projectvlu_lsoul?_r=1', role: 'Video ngắn', desc: 'Chuyển động của chất liệu, kỹ thuật dựng corset 3D và cách phối đồ trong 15 giây.' },
   { key: 'instagram', label: 'Instagram', url: 'https://www.instagram.com/lsoul.projectvlu/', role: 'Lookbook', desc: 'Lưới ảnh đồng bộ màu sắc, lookbook mỗi mùa và khoảnh khắc hậu trường.' },
   { key: 'youtube', label: 'YouTube', url: 'https://www.youtube.com/@ProjectVLULsoul', role: 'Video dài', desc: 'Phim lookbook, hậu trường buổi chụp và hướng dẫn phối đồ chi tiết.' },
   { key: 'facebook', label: 'Facebook', url: 'https://www.facebook.com/share/1Dd9gYe5Fm/', role: 'Cộng đồng', desc: 'Nơi khách hàng chia sẻ outfit, hỏi size và nhận tư vấn từ stylist.' },
