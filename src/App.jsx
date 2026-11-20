@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useRoute } from './router.jsx';
 import { track } from './analytics.js';
+import DemoTour, { DEMO } from './components/DemoTour.jsx';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import CartDrawer from './components/CartDrawer.jsx';
@@ -53,6 +54,7 @@ export default function App() {
       <CartDrawer />
       <SearchOverlay />
       <Toast />
+      {DEMO && <DemoTour />}
     </>
   );
 }

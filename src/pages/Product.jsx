@@ -92,7 +92,7 @@ export default function Product({ id }) {
         <div className="pdp__gallery">
           <div className="pdp__thumbs">
             {product.images.map((im, i) => (
-              <button key={im} className={`pdp__thumb ${active === i ? 'is-on' : ''}`} onClick={() => setActive(i)} aria-label={`Ảnh ${i + 1}`}>
+              <button key={im} className={`pdp__thumb ${active === i ? 'is-on' : ''}`} onClick={() => { setActive(i); track('view_product_image', { item_id: product.id, image_index: i + 1 }); }} aria-label={`Ảnh ${i + 1}`}>
                 <Img name={im} w={200} alt="" />
               </button>
             ))}
@@ -123,7 +123,7 @@ export default function Product({ id }) {
           <div className="pdp__field">
             <div className="row-between">
               <p className="label">Size: <b>{size || '—'}</b></p>
-              <button className="link-btn small" onClick={() => setGuide(true)}>Bảng size</button>
+              <button className="link-btn small" onClick={() => { setGuide(true); track('view_size_guide', { item_id: product.id, item_name: product.name }); }}>Bảng size</button>
             </div>
             <div className={`sizes ${shake ? 'shake' : ''}`}>
               {SIZES.map((s) => (

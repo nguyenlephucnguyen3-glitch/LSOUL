@@ -3,14 +3,18 @@
 // Chưa có ID thì web vẫn chạy bình thường, các sự kiện chỉ được ghi ra Console (F12) để kiểm tra.
 const env = import.meta.env || {};
 // Measurement ID của LSOUL. Có thể ghi đè bằng VITE_GA_ID trong file .env.
-const GA_ID = env.VITE_GA_ID || 'G-D51Q7KE7QG';
+// .trim(): bỏ khoảng trắng / xuống dòng thừa khi dán mã vào Vercel hoặc .env
+const GA_ID = (env.VITE_GA_ID || 'G-D51Q7KE7QG').trim();
 export const CURRENCY = 'VND';
 
 let started = false;
 
 // Gắn thẻ G-Tag vào <head> của trang.
+const DEMO_MODE = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('demo');
+
 export function initAnalytics() {
-  if (started || !GA_ID) return;
+  // Chế độ demo (?demo=1) không gửi dữ liệu để số liệu GA4 luôn là của người dùng thật.
+  if (started || !GA_ID || DEMO_MODE) return;
   started = true;
   window.dataLayer = window.dataLayer || [];
   window.gtag = function gtag() {
@@ -29,6 +33,7 @@ export function initAnalytics() {
 const recent = new Map();
 
 export function track(name, params = {}) {
+  if (DEMO_MODE) return;
   // Bỏ qua sự kiện trùng lặp trong 400ms (React StrictMode chạy effect 2 lần khi dev).
   const sig = name + JSON.stringify(params);
   const now = Date.now();
