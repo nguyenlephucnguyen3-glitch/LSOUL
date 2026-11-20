@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { getProduct } from '../data/products.js';
+import { CURRENCY, track, toItem } from '../analytics.js';
 
 const StoreContext = createContext(null);
 
@@ -49,6 +50,7 @@ export function StoreProvider({ children }) {
         return [...items, { key, id, size, color: c, qty }];
       });
       notify(`${p.name} — size ${size} đã vào giỏ`);
+      track('add_to_cart', { currency: CURRENCY, value: p.price * qty, items: [toItem(p, { item_variant: `${c} / ${size}`, quantity: qty })] });
       setCartOpen(true);
     },
     [notify],
@@ -63,6 +65,7 @@ export function StoreProvider({ children }) {
     const p = getProduct(id);
     const has = wishlist.includes(id);
     notify(has ? `Đã bỏ ${p.name} khỏi Wishlist` : `Đã lưu ${p.name} vào Wishlist`);
+    if (!has) track('add_to_wishlist', { currency: CURRENCY, value: p.price, items: [toItem(p)] });
     setWishlist((list) => (has ? list.filter((x) => x !== id) : [...list, id]));
   };
 

@@ -6,6 +6,13 @@ import Img from '../components/Img.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 import { ArrowIcon, CloseIcon, HeartIcon, MinusIcon, PlusIcon } from '../components/Icons.jsx';
 import NotFound from './NotFound.jsx';
+import StyleItYourWay from '../components/StyleItYourWay.jsx';
+import { ShareButtons, UgcTile } from '../components/Community.jsx';
+import { useUgc } from '../data/ugc.js';
+import { SITE } from '../data/site.js';
+import { imgUrl } from '../data/images.js';
+import { useSeo, absUrl } from '../seo.js';
+import { CURRENCY, track, toItem } from '../analytics.js';
 
 const SIZE_TABLE = [
   ['XS', '78–81', '60–62', '84–87'],
@@ -35,13 +42,33 @@ export default function Product({ id }) {
   const [qty, setQty] = useState(1);
   const [guide, setGuide] = useState(false);
   const [shake, setShake] = useState(false);
+  const { all: ugcAll } = useUgc();
+  const cover = product ? absUrl(imgUrl(product.images[0], 1200)) : undefined;
+  useSeo({
+    title: product?.name || 'Không tìm thấy sản phẩm',
+    description: product ? `${product.name} — ${product.desc}` : undefined,
+    image: cover,
+    noindex: !product,
+    jsonLd: product && {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: product.name,
+      description: product.desc,
+      image: product.images.map((im) => absUrl(imgUrl(im, 1200))),
+      brand: { '@type': 'Brand', name: 'LSOUL' },
+      sku: product.id,
+      offers: { '@type': 'Offer', priceCurrency: CURRENCY, price: product.price, availability: 'https://schema.org/InStock', url: `${SITE.url}/product/${product.id}` },
+    },
+  });
 
   useEffect(() => {
     setActive(0); setSize(null); setQty(1); setColor(product?.colors[0].name);
+    if (product) track('view_item', { currency: CURRENCY, value: product.price, items: [toItem(product)] });
   }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!product) return <NotFound />;
   const liked = wishlist.includes(product.id);
+  const ugcHere = ugcAll.filter((p) => p.productId === product.id).slice(0, 4);
   const related = PRODUCTS.filter((p) => p.id !== product.id && p.category === product.category)
     .concat(PRODUCTS.filter((p) => p.id !== product.id && p.category !== product.category))
     .slice(0, 4);
@@ -117,6 +144,8 @@ export default function Product({ id }) {
             </button>
           </div>
 
+          <ShareButtons path={`/product/${product.id}`} title={product.name} itemId={product.id} />
+
           <Accordion title="Chi tiết thiết kế" open>
             <ul className="bullets">{product.details.map((d) => <li key={d}>{d}</li>)}</ul>
           </Accordion>
@@ -127,6 +156,23 @@ export default function Product({ id }) {
             <p className="muted">Corset LSOUL ôm sát eo. Nếu số đo eo nằm giữa hai size, hãy chọn size lớn hơn — phần dây đan cho phép siết thêm khoảng 3cm.</p>
           </Accordion>
         </div>
+      </section>
+
+      <StyleItYourWay product={product} />
+
+      <section className="section pdp-ugc">
+        <div className="section__head">
+          <div>
+            <p className="eyebrow">{SITE.hashtag}</p>
+            <h2 className="display">Cộng đồng đang mặc</h2>
+          </div>
+          <Link to={`/community?share=${product.id}`} className="btn btn--outline btn--sm">Chia sẻ outfit của bạn</Link>
+        </div>
+        {ugcHere.length ? (
+          <div className="ugc-grid ugc-grid--row">{ugcHere.map((p) => <UgcTile key={p.id} post={p} />)}</div>
+        ) : (
+          <p className="muted">Chưa có ai chia sẻ cách mặc {product.name}. Hãy là người đầu tiên.</p>
+        )}
       </section>
 
       <section className="section">

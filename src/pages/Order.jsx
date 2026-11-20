@@ -1,3 +1,4 @@
+import { useSeo } from '../seo.js';
 import { useEffect, useState } from 'react';
 import { useStore } from '../context/StoreContext.jsx';
 import { formatPrice } from '../data/products.js';
@@ -41,6 +42,7 @@ function eta(order) {
 }
 
 export default function Order({ id }) {
+  useSeo({ title: 'Đơn hàng', noindex: true });
   const { orders, cancelOrder, notify } = useStore();
   const order = orders.find((o) => o.id === id);
   const [, tick] = useState(0);

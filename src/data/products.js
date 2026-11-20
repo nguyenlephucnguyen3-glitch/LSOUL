@@ -38,7 +38,7 @@ export const PRODUCTS = [
     category: 'dresses',
     tag: 'New',
     colors: [{ name: 'Ivory', hex: '#F2EDE2' }],
-    images: ['ivory1', 'ivory2', 'ivory3'],
+    images: ['ivory1', 'ivory3', 'ivory2'],
     desc: 'Đầm cổ yếm trắng ngà, thân trên xếp nếp, chân váy xòe phồng nhẹ như cánh hoa.',
     details: ['Cổ yếm buộc nơ sau gáy', 'Thân xếp nếp thủ công', 'Chân váy 2 lớp', 'Giặt khô'],
   },

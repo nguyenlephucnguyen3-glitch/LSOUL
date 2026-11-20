@@ -36,6 +36,20 @@ export const IMAGES = {
   logo:         { id: '1PcSl_8esHOZz6b5qOQ2KA4dxlF4zzzhO', file: 'logo.png' },
   storeA:       { id: '1sIZpe8xBvl1FheW17VJgHJVt8yyOMzy-', file: 'store-shanghai-1.jpg' },
   storeB:       { id: '1QVr2bZ20-JyyuCB-8KTPMzMx164sXkIJ', file: 'store-shanghai-2.jpg' },
+  // Lookbook — buổi chụp outfit (thư mục Drive "Oufit lookbook")
+  lb01: { id: '1r8-Zy2Z3KS20ClPptwjly6zipGNu2a4f', file: 'lookbook-01.jpg' },
+  lb02: { id: '1ycGjSQjNqY8KTdloOgzzkRIM11o0nanH', file: 'lookbook-02.jpg' },
+  lb03: { id: '1XP2KJlCg6VNi9T4Y0xENg1QIiOJD4P-T', file: 'lookbook-03.jpg' },
+  lb04: { id: '1QJ3ogvPYCkHO-LepMbu7hSqPcQYtAlCM', file: 'lookbook-04.jpg' },
+  lb05: { id: '1Xmzd-iwRr58_sK4UGP2EdNiVxm25qf_q', file: 'lookbook-05.jpg' },
+  lb06: { id: '1EtfQV3SBV9RXz1yUmlmsgKP9HPHyu7gs', file: 'lookbook-06.jpg' },
+  lb07: { id: '1r-KkSk_YZOWvZu3tyEdL_cDfQ2ml6WeJ', file: 'lookbook-07.jpg' },
+  lb08: { id: '1hz2x71fTMHRpAGDKSN920Ft0cS8Zk1lJ', file: 'lookbook-08.jpg' },
+  lb09: { id: '1xHBlWmerI_eqvgbYpemSA9evaR9DjTJn', file: 'lookbook-09.jpg' },
+  lb10: { id: '1jdCiL-ay0Gf3-sF1YHUIJKt2WCGQHzW1', file: 'lookbook-10.jpg' },
+  lb11: { id: '1K7eSKEh5iAYpg-FdlNx58zh65sBBvOeE', file: 'lookbook-11.jpg' },
+  lb12: { id: '1IHcd-soP5kbfXlL01JJfCsUGyaZf2ZYk', file: 'lookbook-12.jpg' },
+  lb13: { id: '1lvRjh69ik9wQSuQmKBoymSxorGiLqHF_', file: 'lookbook-13.jpg' },
 };
 
 export function imgUrl(key, width = 1200) {

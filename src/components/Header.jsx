@@ -9,7 +9,8 @@ const NAV = [
   { to: '/shop?cat=dresses', label: 'Dresses' },
   { to: '/shop?cat=sets', label: 'Sets' },
   { to: '/lookbook', label: 'Lookbook' },
-  { to: '/store', label: 'Flagship' },
+  { to: '/story', label: 'Our Story' },
+  { to: '/community', label: 'Community' },
   { to: '/shop?sale=1', label: 'Sale', accent: true },
 ];
 
@@ -37,7 +38,7 @@ export default function Header({ path }) {
         </Link>
         <nav className="nav" aria-label="Danh mục">
           {NAV.map((n) => (
-            <Link key={n.label} to={n.to} className={`nav__link ${n.accent ? 'nav__link--accent' : ''} ${path === n.to.split('?')[0] && n.to === '/lookbook' ? 'is-active' : ''}`}>
+            <Link key={n.label} to={n.to} className={`nav__link ${n.accent ? 'nav__link--accent' : ''} ${!n.to.includes('?') && path === n.to ? 'is-active' : ''}`}>
               {n.label}
             </Link>
           ))}

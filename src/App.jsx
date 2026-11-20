@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { useRoute } from './router.jsx';
+import { track } from './analytics.js';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import CartDrawer from './components/CartDrawer.jsx';
@@ -14,6 +16,8 @@ import NotFound from './pages/NotFound.jsx';
 import Checkout from './pages/Checkout.jsx';
 import Order from './pages/Order.jsx';
 import Orders from './pages/Orders.jsx';
+import Story from './pages/Story.jsx';
+import Community from './pages/Community.jsx';
 
 function Page({ route }) {
   const [first, second] = route.parts;
@@ -26,11 +30,19 @@ function Page({ route }) {
   if (first === 'checkout') return <Checkout />;
   if (first === 'order') return <Order id={second} />;
   if (first === 'orders') return <Orders />;
+  if (first === 'story') return <Story />;
+  if (first === 'community') return <Community params={route.params} />;
   return <NotFound />;
 }
 
 export default function App() {
   const route = useRoute();
+  const routeKey = route.path + JSON.stringify(route.params);
+
+  // SPA: gửi page_view cho GA4 mỗi lần đổi trang (sau khi trang con đã đặt <title>).
+  useEffect(() => {
+    track('page_view', { page_title: document.title, page_location: window.location.href, page_path: route.path });
+  }, [routeKey]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <>
       <Header path={route.path} />

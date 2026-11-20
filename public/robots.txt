@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /checkout
+Disallow: /order/
+Disallow: /orders
+Disallow: /wishlist
+
+Sitemap: https://lsoulss.vercel.app/sitemap.xml

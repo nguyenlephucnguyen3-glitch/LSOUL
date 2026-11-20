@@ -1,3 +1,4 @@
+import { useSeo } from '../seo.js';
 import { useState } from 'react';
 import { Link, navigate } from '../router.jsx';
 import { PRODUCTS } from '../data/products.js';
@@ -5,6 +6,9 @@ import Img from '../components/Img.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 import { TrustBar } from '../components/Footer.jsx';
 import { ArrowIcon, FeatherIcon, GlobeIcon, HangerIcon, Sparkle } from '../components/Icons.jsx';
+import { UgcTile } from '../components/Community.jsx';
+import { useUgc } from '../data/ugc.js';
+import { SITE } from '../data/site.js';
 
 const TABS = [
   { key: 'all', label: 'All' },
@@ -14,7 +18,9 @@ const TABS = [
 ];
 
 export default function Home() {
+  useSeo({ path: '/' });
   const [tab, setTab] = useState('all');
+  const { all: ugc } = useUgc();
   const edit = PRODUCTS.filter((p) => tab === 'all' || p.category === tab).slice(0, 4);
 
   return (
@@ -29,7 +35,7 @@ export default function Home() {
             <span className="line-mask"><span className="rose">soul.</span></span>
           </h1>
           <Sparkle />
-          <p className="hero__lede reveal">Romance in structure.<br />Made to be yours.</p>
+          <p className="hero__lede reveal">Mặc theo cách của bạn.<br />Romance in structure.</p>
           <button className="btn reveal" onClick={() => navigate('/shop')}>
             Shop the edit <ArrowIcon width={16} height={16} />
           </button>
@@ -105,6 +111,20 @@ export default function Home() {
             “Corset không phải để gò bó — mà để đứng thẳng hơn.”
             <cite>— LSOUL Atelier</cite>
           </blockquote>
+        </div>
+      </section>
+
+      {/* COMMUNITY (UGC) */}
+      <section className="section home-community">
+        <div className="section__head">
+          <div>
+            <p className="eyebrow">Community · {SITE.hashtag}</p>
+            <h2 className="display">Mặc theo cách của bạn</h2>
+          </div>
+          <Link to="/community" className="btn btn--outline btn--sm">Xem cộng đồng <ArrowIcon width={14} height={14} /></Link>
+        </div>
+        <div className="ugc-grid ugc-grid--row">
+          {ugc.slice(0, 4).map((p) => <UgcTile key={p.id} post={p} onOpen={() => navigate('/community')} />)}
         </div>
       </section>
 

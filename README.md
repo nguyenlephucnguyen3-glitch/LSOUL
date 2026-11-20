@@ -44,3 +44,24 @@ src/
   router.jsx   router hash nhỏ, không cần thư viện
   styles.css   design tokens + toàn bộ giao diện
 ```
+
+## Đo lường & SEO (GA4 + Search Console)
+
+Mọi cấu hình nằm trong file `.env` ở thư mục gốc. Sửa xong thì tắt và chạy lại `npm run dev`.
+
+| Biến | Lấy ở đâu |
+|---|---|
+| `VITE_GA_ID` | GA4 → Admin → Data streams → Measurement ID (`G-XXXXXXXXXX`) |
+| `VITE_SITE_URL` | Tên miền sau khi deploy, ví dụ `https://lsoul.vercel.app` |
+| `VITE_GSC_VERIFICATION` | Search Console → xác minh bằng thẻ HTML → chỉ lấy phần `content="..."` |
+
+- Chưa có `VITE_GA_ID` thì các sự kiện được in ra Console (F12) với nhãn `[GA4 · chưa có ID]` để kiểm tra.
+- Sự kiện đang gửi: `page_view`, `view_item_list`, `view_item`, `select_content` (xem cách phối), `add_to_cart`, `add_to_wishlist`, `begin_checkout`, `purchase`, `search`, `share`, `social_click`, `generate_lead` (đăng ký newsletter), `ugc_submit` (đăng ảnh cộng đồng).
+- `npm run seo` tạo `public/sitemap.xml` và `public/robots.txt` (tự chạy trước `npm run build`). Nộp `https://<tên-miền>/sitemap.xml` trong Search Console.
+
+## Big Idea — "Mặc theo cách của bạn"
+
+- `/story` — Brand storytelling: tuyên ngôn, 3 trụ cột, quy trình làm corset.
+- Trang sản phẩm — Real styling: 3 cách phối theo dịp (sửa trong `src/data/styling.js`), nút chia sẻ có gắn UTM.
+- `/community` — UGC: gallery, đăng ảnh outfit, lọc theo sản phẩm (bản demo lưu ảnh trong trình duyệt).
+- Link mạng xã hội: sửa trong `src/data/site.js` (`SOCIAL`).

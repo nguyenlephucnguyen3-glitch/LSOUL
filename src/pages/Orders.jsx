@@ -1,3 +1,4 @@
+import { useSeo } from '../seo.js';
 import { useStore } from '../context/StoreContext.jsx';
 import { formatPrice } from '../data/products.js';
 import { ORDER_STEPS, orderStep } from '../data/checkout.js';
@@ -6,6 +7,7 @@ import Img from '../components/Img.jsx';
 import { ArrowIcon } from '../components/Icons.jsx';
 
 export default function Orders() {
+  useSeo({ title: 'Đơn hàng của tôi', noindex: true });
   const { orders } = useStore();
   return (
     <main className="page">

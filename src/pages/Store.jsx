@@ -1,8 +1,11 @@
+import { useSeo } from '../seo.js';
+import { imgUrl } from '../data/images.js';
 import { useStore } from '../context/StoreContext.jsx';
 import Img from '../components/Img.jsx';
 import { Sparkle } from '../components/Icons.jsx';
 
 export default function Store() {
+  useSeo({ title: 'Flagship Shanghai', description: 'LSOUL Flagship Shanghai — không gian trưng bày như phòng triển lãm, đo corset và styling 1:1.', image: imgUrl('storeA', 800) });
   const { notify } = useStore();
   return (
     <main className="page">

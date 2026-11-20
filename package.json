@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/seo-files.mjs",
     "build": "vite build",
+    "seo": "node scripts/seo-files.mjs",
     "preview": "vite preview",
     "images": "node scripts/download-images.mjs"
   },

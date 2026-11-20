@@ -1,9 +1,11 @@
+import { useSeo } from '../seo.js';
 import { useStore } from '../context/StoreContext.jsx';
 import { PRODUCTS } from '../data/products.js';
 import { Link } from '../router.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 
 export default function Wishlist() {
+  useSeo({ title: 'Wishlist', noindex: true });
   const { wishlist } = useStore();
   const items = PRODUCTS.filter((p) => wishlist.includes(p.id));
   return (

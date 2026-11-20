@@ -1,4 +1,7 @@
+import { useEffect } from 'react';
 import { CATEGORIES, PRODUCTS } from '../data/products.js';
+import { useSeo } from '../seo.js';
+import { track, toItem } from '../analytics.js';
 import { navigate } from '../router.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 
@@ -25,6 +28,11 @@ export default function Shop({ params }) {
   if (sort === 'high') list = [...list].sort((a, b) => b.price - a.price);
 
   const title = CATEGORIES.find((c) => c.key === cat)?.label || 'Tất cả';
+  const listName = params.sale ? 'Private Sale' : title === 'Tất cả' ? 'Bộ sưu tập' : title;
+  useSeo({ title: listName, description: `${listName} — thời trang nữ LSOUL: corset, đầm xếp nếp, nơ và ren. Mặc theo cách của bạn.` });
+  useEffect(() => {
+    track('view_item_list', { item_list_name: listName, items: list.map((p, i) => toItem(p, { index: i })) });
+  }, [cat, sort]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <main className="page">

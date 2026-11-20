@@ -4,6 +4,7 @@ import { PRODUCTS, formatPrice } from '../data/products.js';
 import { Link } from '../router.jsx';
 import Img from './Img.jsx';
 import { CloseIcon, SearchIcon } from './Icons.jsx';
+import { track } from '../analytics.js';
 
 const SUGGEST = ['corset', 'ruffle', 'ivory', 'rouge', 'gingham'];
 
@@ -43,7 +44,7 @@ export default function SearchOverlay() {
         {term && results.length === 0 && <p className="muted">Không tìm thấy “{q}”. Thử từ khóa khác.</p>}
         <div className="search__results">
           {results.map((p) => (
-            <Link key={p.id} to={`/product/${p.id}`} className="search__item" onClick={close}>
+            <Link key={p.id} to={`/product/${p.id}`} className="search__item" onClick={() => { track('search', { search_term: q.trim() }); close(); }}>
               <Img name={p.images[0]} w={300} alt={p.name} />
               <span>{p.name}</span>
               <span className="muted small">{formatPrice(p.price)}</span>

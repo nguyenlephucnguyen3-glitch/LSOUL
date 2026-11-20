@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useStore } from '../context/StoreContext.jsx';
 import { Link } from '../router.jsx';
 import { BoxIcon, HeadsetIcon, LockIcon, TruckIcon } from './Icons.jsx';
+import { SocialLinks } from './Community.jsx';
+import { track } from '../analytics.js';
 
 const TRUST = [
   { Icon: LockIcon, title: 'Secure payment', sub: 'Thanh toán bảo mật' },
@@ -46,7 +48,9 @@ export default function Footer() {
         </div>
         <div>
           <p className="eyebrow">Maison</p>
+          <Link to="/story">Our Story</Link>
           <Link to="/lookbook">Lookbook</Link>
+          <Link to="/community">Community</Link>
           <Link to="/store">Flagship Shanghai</Link>
           <Link to="/wishlist">Wishlist</Link>
         </div>
@@ -55,6 +59,7 @@ export default function Footer() {
           onSubmit={(e) => {
             e.preventDefault();
             if (!/^\S+@\S+\.\S+$/.test(email)) return notify('Email chưa hợp lệ');
+            track('generate_lead', { method: 'newsletter' });
             notify('Cảm ơn bạn — hẹn gặp trong hộp thư.');
             setEmail('');
           }}
@@ -69,7 +74,7 @@ export default function Footer() {
       </div>
       <div className="footer__bottom">
         <span>© 2026 LSOUL Atelier</span>
-        <span>Instagram · TikTok · Pinterest</span>
+        <SocialLinks />
       </div>
     </footer>
   );

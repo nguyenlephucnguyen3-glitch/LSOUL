@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useSeo } from '../seo.js';
+import { useEffect, useState } from 'react';
+import { CURRENCY, track, toItem } from '../analytics.js';
 import { useStore } from '../context/StoreContext.jsx';
 import { formatPrice } from '../data/products.js';
 import { CITIES, FREE_SHIP_MIN, GIFT_WRAP_FEE, PAYMENTS, SHIPPING, VOUCHERS, calcTotals } from '../data/checkout.js';
@@ -38,6 +40,7 @@ function Field({ label, name, form, errors, onChange, type = 'text', placeholder
 }
 
 export default function Checkout() {
+  useSeo({ title: 'Thanh toán', noindex: true });
   const { lines, subtotal, placeOrder, notify } = useStore();
   const [form, setForm] = useState(EMPTY);
   const [errors, setErrors] = useState({});
@@ -48,6 +51,11 @@ export default function Checkout() {
   const [voucher, setVoucher] = useState(null);
   const [voucherMsg, setVoucherMsg] = useState('');
   const [loading, setLoading] = useState(false);
+  const gaItems = lines.map((l) => toItem(l.product, { item_variant: `${l.color} / ${l.size}`, quantity: l.qty }));
+
+  useEffect(() => {
+    if (lines.length) track('begin_checkout', { currency: CURRENCY, value: subtotal, items: gaItems });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (lines.length === 0) {
     return (
@@ -106,6 +114,7 @@ export default function Checkout() {
         subtotal,
         ...{ ship: t.ship, discount: t.discount, gift: t.gift, total: t.total },
       });
+      track('purchase', { transaction_id: id, value: t.total, currency: CURRENCY, shipping: t.ship, coupon: voucher || undefined, items: gaItems });
       navigate(`/order/${id}`);
     }, payment === 'cod' ? 900 : 1600);
   };
