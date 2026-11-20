@@ -113,8 +113,7 @@ export default function Order({ id }) {
                     </li>
                   ))}
                 </ol>
-              </div>
-              <p className="od-hint">Bản demo · trạng thái tự chuyển bước sau mỗi 2 phút</p>
+              </div>  
             </section>
           )}
 

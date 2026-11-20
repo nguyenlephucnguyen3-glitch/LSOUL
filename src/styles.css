@@ -844,3 +844,22 @@ input, select, textarea { font: inherit; }
 .demo-end { position: fixed; inset: 0; z-index: 130; display: grid; place-content: center; justify-items: center; gap: 12px; text-align: center; background: var(--c-black); animation: pageIn 1s var(--ease-out); }
 .demo-end .eyebrow { color: var(--c-rose); }
 .connect__card.is-hl { background: #1f1d1b; box-shadow: inset 0 0 0 1px var(--c-rose); }
+
+/* ============ Sửa chữ tiếng Việt viết hoa bị dính dòng (dấu Ộ, Ẩ, Ệ…) ============ */
+.display { line-height: 1.2; }
+.display-sm { line-height: 1.3; }
+.sp-hero__title, .od-title { line-height: 1.12; }
+.hero__title--vi { line-height: 1.08; }
+/* Chừa chỗ cho dấu phía trên chữ hoa để không bị cắt khi chạy hiệu ứng */
+.hero__title--vi .line-mask { padding-top: 0.16em; margin-top: -0.08em; padding-bottom: 0.1em; }
+.siyw__tip, .sp-manifesto__text { line-height: 1.5; }
+
+@media (max-width: 600px) {
+  .display { font-size: clamp(1.7rem, 7.4vw, 2.2rem); line-height: 1.24; letter-spacing: 0; }
+  .display-sm { font-size: 1.5rem; }
+  .hero__title--vi { font-size: clamp(2.6rem, 12.5vw, 3.4rem); line-height: 1.1; }
+  .sp-hero__title { font-size: clamp(2.4rem, 11vw, 3.2rem); }
+  .od-title { font-size: clamp(2.8rem, 13vw, 3.6rem); }
+  .eyebrow { letter-spacing: 0.2em; line-height: 1.8; }
+  .section__head { margin-bottom: 28px; }
+}
